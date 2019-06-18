@@ -1,0 +1,13 @@
+#!/bin/bash
+## example usage:
+# 
+if [[ "$#" -gt 2 ]]; then
+    echo "Usage: b2 <account_id> <app_key> ..."
+    exit 1
+fi
+
+ACCOUNT_ID="$1"
+shift 
+APPLICATION_KEY="$1"
+shift
+docker run -e ACCOUNT_ID="${ACCOUNT_ID}" -e APPLICATION_KEY="${APPLICATION_KEY}" --user="$(id -u):$(id -g)" --net=host -v "$(PWD)":/data -w=/data --rm -it waldher/backblaze-b2 "$@"
