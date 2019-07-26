@@ -10,4 +10,4 @@ ACCOUNT_ID="$1"
 shift 
 APPLICATION_KEY="$1"
 shift
-docker run -e ACCOUNT_ID="${ACCOUNT_ID}" -e APPLICATION_KEY="${APPLICATION_KEY}" --user="$(id -u):$(id -g)" --net=host -v "$(PWD)":/data -w=/data --rm -it waldher/backblaze-b2 "$@"
+docker run -e ACCOUNT_ID="${ACCOUNT_ID}" -e APPLICATION_KEY="${APPLICATION_KEY}" --user="$(id -u):$(id -g)" --net=host -v "${PWD}":/data -w=/data --rm -it waldher/backblaze-b2 "$@"
