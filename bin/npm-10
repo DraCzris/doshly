@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run --user="$(id -u):$(id -g)" --net=none -v "${PWD}":/data -w=/data --rm -it node:10 npm "$@"
