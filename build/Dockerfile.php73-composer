@@ -1,0 +1,21 @@
+FROM php:7.3-cli
+
+RUN apt-get update && apt-get install -y \
+        git \
+    &&  apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+ENV COMPOSER_HOME="/usr/local/composer" 
+
+
+ARG PUID
+ARG PGID 
+
+RUN mkdir /usr/local/composer && chown -R "${PUID}:${PGID}" /usr/local/composer
+
+USER "${PUID}:${PGID}"
+
+# make it fast
+RUN composer global require "hirak/prestissimo:^0.3" --prefer-dist --no-progress --no-suggest --classmap-authoritative --no-plugins --no-scripts && composer clear-cache
+
